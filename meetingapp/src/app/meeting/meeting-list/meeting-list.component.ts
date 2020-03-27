@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MEETINGS } from './../mock-meetings';
 import { Meeting } from './../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-meeting-list',
@@ -9,8 +9,13 @@ import { MeetingDataService } from '../meeting-data.service';
   styleUrls: ['./meeting-list.component.css']
 })
 export class MeetingListComponent {
-  constructor(private _meetingDataService: MeetingDataService) { }
   public filterMeetingName: string;
+  public filterMeeting$ = new Subject<string>();
+
+  constructor(private _meetingDataService: MeetingDataService) {
+    this.filterMeeting$.subscribe(
+      m => this.filterMeetingName = m);  
+   }
 
   applyFilter(filter:string){
     this.filterMeetingName = filter;
