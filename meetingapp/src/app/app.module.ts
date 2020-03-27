@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MeetingModule } from './meeting/meeting.module';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { MeetingModule } from './meeting/meeting.module';
   ],
   imports: [
     BrowserModule,
-    MeetingModule
+    MeetingModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
