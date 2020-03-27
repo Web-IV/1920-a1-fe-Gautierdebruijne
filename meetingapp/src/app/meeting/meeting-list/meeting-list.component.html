@@ -1,15 +1,18 @@
-<div
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutGap="0.5%"
-  fxLayoutAlign="start"
->
-  <div 
-    class="meeting"
-    *ngFor="let localMeeting of meetings"
-    fxFlex="0 0 calc(25%-0.5%)"
-    fxFlex.xs="100%"
+<div fxLayout="column" fxLayoutGap="2%">
+  <app-add-meeting (newMeeting)="addNewMeeting($event)"></app-add-meeting>
+  <div
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayoutAlign="center"
   >
-    <app-meeting [meeting]="localMeeting"></app-meeting>
+    <div 
+      class="meeting"
+      *ngFor="let localMeeting of meetings"
+      fxFlex="0 0 calc(60%)"
+      fxFlex.xs="100%"
+    >
+      <app-meeting [meeting]="localMeeting"></app-meeting>
+    </div>
   </div>
 </div>
+  
