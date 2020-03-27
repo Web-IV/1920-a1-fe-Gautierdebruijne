@@ -1,10 +1,17 @@
-<p>
-    Meeting met {{name}} op {{dateAdded | date: 'dd/MM/yyyy'}}
-<p>          
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Meeting met {{name}}</mat-card-title>
+        <mat-card-subtitle>{{dateAdded | date: 'dd/MM/yyyy'}} </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <h3 mat-subheader>Verkopers;</h3>
+        <mat-list>
+            <mat-list-item *ngFor="let verkoper of verkopers">
+                <app-verkoper [name]="verkoper"></app-verkoper>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
 
-Verkopers;
-<ul>
-    <li *ngFor="let verkoper of verkopers">
-        <app-verkoper [name]="verkoper"></app-verkoper>
-    </li>
-  </ul>
+          
+
