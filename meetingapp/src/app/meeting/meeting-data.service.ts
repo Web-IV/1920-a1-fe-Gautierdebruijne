@@ -15,6 +15,6 @@ export class MeetingDataService {
   }
 
   addNewMeeting(meeting: Meeting){
-    this._meetings.push(meeting);
+    this._meetings = [...this._meetings, meeting];
   }
 }
