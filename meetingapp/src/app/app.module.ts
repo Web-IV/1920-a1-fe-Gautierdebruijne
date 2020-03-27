@@ -2,17 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { MeetingComponent } from './meeting/meeting.component';
-import { VerkoperComponent } from './verkoper/verkoper.component';
+import { MeetingModule } from './meeting/meeting.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MeetingComponent,
-    VerkoperComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    MeetingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
