@@ -4,7 +4,7 @@ const JsonMeetings = [
     {
         name: 'fam. Engels',
         verkopers: ['Jo de Bruijne'],
-        dateAdded: '29/05/2020'
+        dateAdded: '05/10/2020'
     },
 
     {
