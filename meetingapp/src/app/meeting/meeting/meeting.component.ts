@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Meeting } from '../meeting.model';
 
 @Component({
   selector: 'app-meeting',
@@ -6,16 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meeting.component.css']
 })
 export class MeetingComponent implements OnInit {
-  name: string;
-  verkopers: string[];
-  dateAdded: Date;
+  @Input() public meeting: Meeting;
 
-
-  constructor() { 
-    this.name = "fam. Engels";
-    this.verkopers = ["Jo de Bruijne", "Stefaan Durwael"];
-    this.dateAdded = new Date();
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }
