@@ -10,6 +10,11 @@ import { MeetingDataService } from '../meeting-data.service';
 })
 export class MeetingListComponent {
   constructor(private _meetingDataService: MeetingDataService) { }
+  public filterMeetingName: string;
+
+  applyFilter(filter:string){
+    this.filterMeetingName = filter;
+  }
 
   get meetings(): Meeting[]{
     return this._meetingDataService.meetings;

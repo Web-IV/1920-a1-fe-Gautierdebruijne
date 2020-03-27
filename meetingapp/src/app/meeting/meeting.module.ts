@@ -5,9 +5,10 @@ import { MeetingComponent } from './meeting/meeting.component';
 import { MaterialModule } from './../material/material.module';
 import { MeetingListComponent } from './meeting-list/meeting-list.component';
 import { AddMeetingComponent } from './add-meeting/add-meeting.component';
+import { MeetingFilterPipe } from './meeting-filter.pipe';
 
 @NgModule({
-  declarations: [VerkoperComponent, MeetingComponent, MeetingListComponent, AddMeetingComponent],
+  declarations: [VerkoperComponent, MeetingComponent, MeetingListComponent, AddMeetingComponent, MeetingFilterPipe],
   imports: [CommonModule, MaterialModule],
   exports: [MeetingListComponent]
 })

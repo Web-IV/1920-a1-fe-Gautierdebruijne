@@ -1,5 +1,12 @@
 <div fxLayout="column" fxLayoutGap="2%">
   <app-add-meeting (newMeeting)="addNewMeeting($event)"></app-add-meeting>
+  <mat-card>
+    <mat-form-field>
+      <input matInput placeholder="filter" type="text" #filter> 
+    </mat-form-field>
+    <button (click)="applyFilter(filter.value)" mat-raised-button>filter</button>
+  </mat-card>
+
   <div
     fxLayout="row wrap"
     fxLayout.xs="column"
@@ -7,7 +14,7 @@
   >
     <div 
       class="meeting"
-      *ngFor="let localMeeting of meetings"
+      *ngFor="let localMeeting of (meetings | meetingFilter: filterMeetingName)"
       fxFlex="0 0 calc(60%)"
       fxFlex.xs="100%"
     >
