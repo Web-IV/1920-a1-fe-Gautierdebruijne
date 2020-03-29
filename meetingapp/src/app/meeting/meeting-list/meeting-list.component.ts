@@ -1,36 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Meeting } from './../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
 @Component({
   selector: 'app-meeting-list',
   templateUrl: './meeting-list.component.html',
   styleUrls: ['./meeting-list.component.css']
 })
-export class MeetingListComponent {
+export class MeetingListComponent implements OnInit{
   public filterMeetingName: string;
   public filterMeeting$ = new Subject<string>();
+  private _fetchMeetings$:  Observable<Meeting[]> = this._meetingDataService.meetings$;
 
   constructor(private _meetingDataService: MeetingDataService) {
-    this.filterMeeting$
-      .pipe(
-        distinctUntilChanged(),
-        debounceTime(200),
-        map(v => v.toLowerCase()),
-      )
-      .subscribe(m => this.filterMeetingName = m);  
-   }
+    this.filterMeeting$.pipe(
+      distinctUntilChanged(),
+      debounceTime(200),
+      map(v => v.toLowerCase())
+    ).subscribe(v => (this.filterMeetingName = v));
+  }
 
   applyFilter(filter:string){
     this.filterMeetingName = filter;
   }
 
-  get meetings(): Meeting[]{
-    return this._meetingDataService.meetings;
+  get meetings$(): Observable<Meeting[]>{
+    return this._fetchMeetings$;
   }
 
-  addNewMeeting(meeting){
-    this._meetingDataService.addNewMeeting(meeting);
-  }
+  ngOnInit():void {}
+
+  // addNewMeeting(meeting){
+  //   this._meetingDataService.addNewMeeting(meeting);
+  // }
 }

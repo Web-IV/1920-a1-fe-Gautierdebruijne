@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Meeting } from './meeting.model';
 import { MEETINGS } from './mock-meetings';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class MeetingDataService {
-  private _meetings = MEETINGS;
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  get meetings(): Meeting[]{
-    return this._meetings;
+  get meetings$(): Observable<Meeting[]>{
+    return this.http.get(`${environment.apiUrl}/meetings/`).pipe(
+        tap(console.log),
+        map(
+          (list:any[]): Meeting[] => list.map(Meeting.fromJSON)
+      )
+    );
   }
 
-  addNewMeeting(meeting: Meeting){
-    this._meetings = [...this._meetings, meeting];
-  }
+  // addNewMeeting(meeting: Meeting){
+  //   this._meetings = [...this._meetings, meeting];
+  // }
 }

@@ -7,7 +7,7 @@
         <h3 mat-subheader>Verkopers;</h3>
         <mat-list>
             <mat-list-item *ngFor="let verkoper of meeting.verkopers">
-                <app-verkoper [name]="verkoper"></app-verkoper>
+                <app-verkoper [verkoper]="verkoper"></app-verkoper>
             </mat-list-item>
         </mat-list>
     </mat-card-content>

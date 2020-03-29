@@ -1,27 +1,29 @@
+import { Verkoper, VerkoperJson } from './verkoper.model';
+
 interface MeetingJson {
     name:string;
-    verkopers:string[];
+    verkopers:VerkoperJson[];
     dateAdded:string;
 }
 
 export class Meeting{
     constructor(
         private _name: string,
-        private _verkopers = new Array<string>(),
+        private _verkopers = new Array<Verkoper>(),
         private _dateAdded = new Date()
     ){}
 
     static fromJSON(json: MeetingJson): Meeting{
-        const m = new Meeting(json.name, json.verkopers, new Date(json.dateAdded));
+        const m = new Meeting(json.name, json.verkopers.map(Verkoper.fromJSON), new Date(json.dateAdded));
         return m;
     }
-
+    
     get dateAdded():Date{
         return this._dateAdded;
     }
 
-    get verkopers():Array<string>{
-        return this._verkopers
+    get verkopers():Verkoper[]{
+        return this._verkopers;
     }
 
     get name():string{
@@ -29,6 +31,6 @@ export class Meeting{
     }
 
     addVerkoper(name:string, title?:string){
-        this._verkopers.push(`${name} ${title || ""}`);
+        this._verkopers.push(new Verkoper(name, title));
     }
 }
