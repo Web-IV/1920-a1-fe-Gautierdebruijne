@@ -1,12 +1,15 @@
 import { Verkoper, VerkoperJson } from './verkoper.model';
 
 interface MeetingJson {
+    id: number;
     name:string;
     verkopers:VerkoperJson[];
     dateAdded:string;
 }
 
 export class Meeting{
+    private _id: number;
+
     constructor(
         private _name: string,
         private _verkopers = new Array<Verkoper>(),
@@ -15,6 +18,7 @@ export class Meeting{
 
     static fromJSON(json: MeetingJson): Meeting{
         const m = new Meeting(json.name, json.verkopers.map(Verkoper.fromJSON), new Date(json.dateAdded));
+        m._id = json.id;
         return m;
     }
 
@@ -28,6 +32,10 @@ export class Meeting{
     
     addVerkoper(name:string, title?:string){
         this._verkopers.push(new Verkoper(name, title));
+    }
+
+    get id(): number {
+        return this._id;
     }
 
     get dateAdded():Date{

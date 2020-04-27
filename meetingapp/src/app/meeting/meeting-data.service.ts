@@ -42,7 +42,7 @@ export class MeetingDataService {
   }
 
   deleteMeeting(meeting: Meeting){
-    return this.http.delete(`${environment.apiUrl}/meetings/${meeting.name}`)
+    return this.http.delete(`${environment.apiUrl}/meetings/${meeting.id}`)
     .pipe(catchError(this.handleError))
     .subscribe(() => {
       this._meetings = this._meetings.filter(m => m.name != meeting.name);
