@@ -1,3 +1,5 @@
+import { ThrowStmt } from '@angular/compiler';
+
 export interface VerkoperJson{
     name:string;
     title:string;
@@ -12,6 +14,13 @@ export class Verkoper{
     static fromJSON(json: VerkoperJson): Verkoper{
         const v = new Verkoper(json.name, json.title);
         return v;   
+    }
+
+    toJSON() : VerkoperJson {
+        return <VerkoperJson>{
+            name: this.name,
+            title: this.title
+        };
     }
 
     get name():string{

@@ -17,7 +17,19 @@ export class Meeting{
         const m = new Meeting(json.name, json.verkopers.map(Verkoper.fromJSON), new Date(json.dateAdded));
         return m;
     }
+
+    toJSON() : MeetingJson {
+        return <MeetingJson>{
+            name: this.name,
+            verkopers: this.verkopers.map(v => v.toJSON()),
+            dateAdded: this.dateAdded.toString()
+        };
+    }
     
+    addVerkoper(name:string, title?:string){
+        this._verkopers.push(new Verkoper(name, title));
+    }
+
     get dateAdded():Date{
         return this._dateAdded;
     }
@@ -28,9 +40,5 @@ export class Meeting{
 
     get name():string{
         return this._name;
-    }
-
-    addVerkoper(name:string, title?:string){
-        this._verkopers.push(new Verkoper(name, title));
     }
 }
