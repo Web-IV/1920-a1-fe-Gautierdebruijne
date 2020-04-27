@@ -6,19 +6,22 @@
     </mat-form-field>
   </mat-card>
 
-  <div
-    fxLayout="row wrap"
-    fxLayout.xs="column"
-    fxLayoutAlign="center"
-  >
+  <div *ngIf="(meetings$ | async) as meetings; else loading">
     <div 
-      class="meeting"
-      *ngFor="let localMeeting of (meetings$ | async | meetingFilter: filterMeetingName)"
-      fxFlex="0 0 calc(60%)"
-      fxFlex.xs="100%"
+      fxLayout="row wrap"
+      fxLayout.xs="column"
+      fxLayoutAlign="center"
     >
-      <app-meeting [meeting]="localMeeting"></app-meeting>
+      <div 
+        class="meeting"
+        *ngFor="let localMeeting of (meetings$ | async | meetingFilter: filterMeetingName)"
+        fxFlex="0 0 calc(60%)"
+        fxFlex.xs="100%"
+      >
+        <app-meeting [meeting]="localMeeting"></app-meeting>
+      </div>
     </div>
   </div>
+  <ng-template #loading><mat-spinner></mat-spinner></ng-template>
 </div>
   

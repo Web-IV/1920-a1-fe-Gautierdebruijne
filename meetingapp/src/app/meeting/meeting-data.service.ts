@@ -4,7 +4,7 @@ import { MEETINGS } from './mock-meetings';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,6 @@ export class MeetingDataService {
 
   get meetings$(): Observable<Meeting[]>{
     return this.http.get(`${environment.apiUrl}/meetings/`).pipe(
-        tap(console.log),
         map(
           (list:any[]): Meeting[] => list.map(Meeting.fromJSON)
       )
