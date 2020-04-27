@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Meeting } from './../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
-import { Subject, Observable } from 'rxjs';
-import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
+import { Subject, Observable, EMPTY } from 'rxjs';
+import { distinctUntilChanged, debounceTime, map, catchError } from 'rxjs/operators';
 @Component({
   selector: 'app-meeting-list',
   templateUrl: './meeting-list.component.html',
@@ -11,7 +11,8 @@ import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
 export class MeetingListComponent implements OnInit{
   public filterMeetingName: string;
   public filterMeeting$ = new Subject<string>();
-  private _fetchMeetings$:  Observable<Meeting[]> = this._meetingDataService.meetings$;
+  private _fetchMeetings$:  Observable<Meeting[]>
+  public errorMessage: string = '';
 
   constructor(private _meetingDataService: MeetingDataService) {
     this.filterMeeting$.pipe(
@@ -29,7 +30,14 @@ export class MeetingListComponent implements OnInit{
     return this._fetchMeetings$;
   }
 
-  ngOnInit():void {}
+  ngOnInit():void {
+    this._fetchMeetings$ = this._meetingDataService.meetings$.pipe(
+      catchError(err => {
+        this.errorMessage = err;
+        return EMPTY;
+      })
+    );
+  }
 
   // addNewMeeting(meeting){
   //   this._meetingDataService.addNewMeeting(meeting);
