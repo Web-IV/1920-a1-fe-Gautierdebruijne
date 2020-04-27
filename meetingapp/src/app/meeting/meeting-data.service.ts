@@ -28,17 +28,24 @@ export class MeetingDataService {
   get meetings$(): Observable<Meeting[]>{
     return this.http.get(`${environment.apiUrl}/meetings/`).pipe(
         catchError(this.handleError),
-        map(
-          (list:any[]): Meeting[] => list.map(Meeting.fromJSON)
-      )
+        map((list:any[]): Meeting[] => list.map(Meeting.fromJSON))
     );
   }
 
   addNewMeeting(meeting: Meeting){
-    this.http.post(`${environment.apiUrl}/meetings/`, meeting.toJSON())
+    return this.http.post(`${environment.apiUrl}/meetings/`, meeting.toJSON())
     .pipe(catchError(this.handleError), map(Meeting.fromJSON))
     .subscribe((m: Meeting) => {
       this._meetings = [...this._meetings, m];
+      this._meetings$.next(this._meetings);
+    });
+  }
+
+  deleteMeeting(meeting: Meeting){
+    return this.http.delete(`${environment.apiUrl}/meetings/${meeting.name}`)
+    .pipe(catchError(this.handleError))
+    .subscribe(() => {
+      this._meetings = this._meetings.filter(m => m.name != meeting.name);
       this._meetings$.next(this._meetings);
     });
   }
