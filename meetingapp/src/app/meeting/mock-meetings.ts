@@ -1,15 +1,16 @@
 import { Meeting } from './meeting.model';
+import { Verkoper } from './verkoper.model';
 
 const JsonMeetings = [
     {
         name: 'fam. Engels',
-        verkopers: ['Jo de Bruijne'],
+        verkopers: [new Verkoper('Jo de Bruijne', 'Verantwoordelijke')],
         dateAdded: '05/10/2020'
     },
 
     {
         name: 'dhr. van Damme',
-        verkopers: ['Jo de Bruijne', 'Stefaan Durwael'],
+        verkopers: [new Verkoper('Stefaan Durwael')],
         dateAdded: '10/04/2020'
     }
 

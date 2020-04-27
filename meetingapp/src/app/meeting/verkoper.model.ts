@@ -6,12 +6,12 @@ export interface VerkoperJson{
 export class Verkoper{
     constructor(
         private _name: string,
-        private _title: string
+        private _title?: string
     ){}
 
     static fromJSON(json: VerkoperJson): Verkoper{
         const v = new Verkoper(json.name, json.title);
-        return v;
+        return v;   
     }
 
     get name():string{
