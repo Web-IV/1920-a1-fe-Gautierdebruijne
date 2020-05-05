@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Meeting} from '../meeting.model'; 
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-meeting',
@@ -15,7 +15,7 @@ export class AddMeetingComponent implements OnInit {
 
   ngOnInit() {
     this.meeting = new FormGroup({
-      name: new FormControl('meeting')
+      name: new FormControl('', [Validators.required, Validators.minLength(3)])
     })
   }
 

@@ -13,11 +13,14 @@
                     placeholder="name"
                     type="text"
                     formControlName="name"
+                    required
+                    #spy
                 />
             </mat-form-field>
-            <button mat-raised-button type="submit">add</button>
+            <button mat-raised-button type="submit" [disabled]='!meeting.valid'>add</button>
         </form>
     </mat-card-content>
 </mat-card>
 
 REMOVE {{ meeting.value | json }}
+{{ spy.className }}
