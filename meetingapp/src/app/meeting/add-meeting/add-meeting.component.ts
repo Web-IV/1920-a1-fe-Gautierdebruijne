@@ -28,4 +28,12 @@ export class AddMeetingComponent implements OnInit {
   onSubmit(){
     this.newMeeting.emit(new Meeting(this.meeting.value.name));
   }
+
+  getErrorMessage(errors:any):string{
+    if(errors.required){
+      return 'is required';
+    }else if(errors.minLength){
+      return `needs at least ${errors.minLength.requiredLength} characters (got ${errors.minLength.requiredLength})`;
+    }
+  }
 };
