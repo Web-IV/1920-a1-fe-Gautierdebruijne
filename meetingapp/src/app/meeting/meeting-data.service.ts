@@ -15,7 +15,14 @@ export class MeetingDataService {
   private _meetings: Meeting[];
 
   constructor(private http: HttpClient) { 
-    this.meetings$.subscribe((meetings: Meeting[]) => {
+    this.meetings$
+    .pipe(catchError(err => {
+      //Temporary fix
+      this._meetings$.error(err);
+      return throwError(err);
+    })
+    )
+    .subscribe((meetings: Meeting[]) => {
       this._meetings = meetings;
       this._meetings$.next(this._meetings);
     });
@@ -35,6 +42,11 @@ export class MeetingDataService {
   addNewMeeting(meeting: Meeting){
     return this.http.post(`${environment.apiUrl}/meetings/`, meeting.toJSON())
     .pipe(catchError(this.handleError), map(Meeting.fromJSON))
+    .pipe(catchError(err => {
+      this._meetings$.error(err);
+      return throwError(err);
+    })
+    )
     .subscribe((m: Meeting) => {
       this._meetings = [...this._meetings, m];
       this._meetings$.next(this._meetings);
@@ -52,13 +64,16 @@ export class MeetingDataService {
 
   handleError(err: any): Observable<never> {
     let errorMessage: string;
-    if(err instanceof HttpErrorResponse){
+    
+    if(err.error instanceof ErrorEvent){
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else if(err instanceof HttpErrorResponse){
+      console.log(err);
       errorMessage = `'${err.status} ${err.statusText}' when accessing '${err.url}'`;
     } else {
       errorMessage = `an unknown error has occurred ${err}`;
     }
-
-    console.error(err);
+    
     return throwError(errorMessage);
   }
 

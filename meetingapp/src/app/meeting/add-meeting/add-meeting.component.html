@@ -9,8 +9,32 @@
             <mat-form-field>
                 <input matInput  aria-label="name" placeholder="name"
                     type="text" formControlName="name"/>
+                <mat-error *ngIf="meeting.get('name')['errors'] && meeting.get('name').touched">
+                    {{ getErrorMessage(meeting.get('name')['errors']) }}</mat-error>
             </mat-form-field>
-            <mat-error *ngIf="meeting.get('name')['errors'] && meeting.get('name').touched">{{ getErrorMessage(meeting.get('name')['errors']) }}</mat-error>
+
+            <div formArrayName="verkopers" *ngFor="let item of meeting.get('verkopers')['controls']; let i = index">
+                <div [formGroupName]="i">
+                  <mat-form-field>
+                    <input matInput type="text" aria-label="verkoper name"
+                      placeholder="name" formControlName="name"/>
+                  </mat-form-field>
+                  <!-- <mat-form-field>
+                    <mat-select placeholder="prefix" aria-label="verkoper prefix">
+                      <mat-option *ngFor="let p of prefix" [value]="p">
+                        {{ p }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+                  <mat-form-field>
+                    <input matInput placeholder="title" aria-label="verkoper title"
+                      type="text" formControlName="title"/>
+                  </mat-form-field>
+                </div>
+                <mat-error *ngIf="item.errors && item.get('name').touched">
+                    {{ getErrorMessage(item.errors) }}
+                </mat-error>
+            </div>
             <button mat-raised-button type="submit" [disabled]='!meeting.valid'>add</button>
         </form>
     </mat-card-content>
