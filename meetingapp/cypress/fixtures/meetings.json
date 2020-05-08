@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "name": "Gautier de Bruijne",
+        "planned": "2019-03-13T12:40:03.184905",
+        "verkopers": 
+        [
+            {
+                "id": 1,
+                "name": "Stefaan Durwael",
+                "title": "Vertegenwoordiger"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Pascale Engels",
+        "planned": "2019-03-13T12:40:03.184905",
+        "verkopers": 
+        [
+            {
+                "id": 1,
+                "name": "Stefaan Durwael",
+                "title": "Vertegenwoordiger"
+            },
+            {
+                "id": 2,
+                "name": "Jo de Bruijne",
+                "title": "Verkoopsverantwoordelijke"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Luna van Damme",
+        "planned": "2019-03-13T12:40:03.184905",
+        "verkopers": 
+        [
+            {
+                "id": 1,
+                "name": "Stefaan Durwael",
+                "title": "Vertegenwoordiger"
+            },
+            {
+                "id": 2,
+                "name": "Jo de Bruijne",
+                "title": "Verkoopsverantwoordelijke"
+            }
+        ]
+    }
+]

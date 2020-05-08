@@ -3,11 +3,11 @@
 
   <mat-card>
     <mat-form-field>
-      <input matInput (keyup)='filterMeeting$.next($event.target.value)' placeholder="Zoek op naam" type="text"> 
+      <input matInput (keyup)='filterMeeting$.next($event.target.value)' placeholder="Zoek op naam" data-cy="filterInput" type="text"> 
     </mat-form-field>
   </mat-card>
   
-  <mat-card class="error" *ngIf="errorMessage">
+  <mat-card class="error" *ngIf="errorMessage" data-cy="appError">
     got an error while loading the recipe list: {{ errorMessage }}
   </mat-card>
   
@@ -23,7 +23,7 @@
         fxFlex="0 0 calc(60%)"
         fxFlex.xs="100%"
       >
-        <app-meeting [meeting]="localMeeting"></app-meeting>
+        <app-meeting [meeting]="localMeeting" data-cy="meetingCard"></app-meeting>
       </div>
     </div>
   </div>
