@@ -1,6 +1,4 @@
 <div fxLayout="column" fxLayoutGap="2%">
-  <app-add-meeting (newMeeting)="addNewMeeting($event)"></app-add-meeting>
-
   <mat-card>
     <mat-form-field>
       <input matInput (keyup)='filterMeeting$.next($event.target.value)' placeholder="Zoek op naam" data-cy="filterInput" type="text"> 

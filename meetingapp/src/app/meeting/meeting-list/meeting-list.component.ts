@@ -38,8 +38,4 @@ export class MeetingListComponent implements OnInit{
       })
     );
   }
-
-  addNewMeeting(meeting){
-    this._meetingDataService.addNewMeeting(meeting);
-  }
 }
