@@ -8,6 +8,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { MeetingListComponent } from './meeting/meeting-list/meeting-list.component';
 import { AddMeetingComponent } from './meeting/add-meeting/add-meeting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 const appRoutes: Routes = [
   {path: 'meeting/list', component: MeetingListComponent},
@@ -18,13 +25,20 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
     MeetingModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
