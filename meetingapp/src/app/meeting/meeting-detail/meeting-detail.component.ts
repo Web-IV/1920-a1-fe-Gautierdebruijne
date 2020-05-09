@@ -13,9 +13,8 @@ export class MeetingDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private meetingDataService: MeetingDataService) { }
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.meetingDataService.getMeeting$(id).subscribe(item => this.meeting = item);
+  ngOnInit() {
+    this.route.data.subscribe(item =>
+      this.meeting = item['meeting']);
   }
-
 }

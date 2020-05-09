@@ -5,11 +5,12 @@ import { MeetingListComponent } from './meeting/meeting-list/meeting-list.compon
 import { AddMeetingComponent } from './meeting/add-meeting/add-meeting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
+import { MeetingResolver } from './meeting/MeetingResolver';
 
 const appRoutes: Routes = [
   {path: 'meeting/list', component: MeetingListComponent},
   {path: 'meeting/add', component: AddMeetingComponent},
-  {path: 'meeting/detail/:id', component: MeetingDetailComponent},
+  {path: 'meeting/detail/:id', component: MeetingDetailComponent, resolve: {meeting: MeetingResolver}},
   {path: '', redirectTo: 'meeting/list', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
@@ -21,4 +22,5 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
