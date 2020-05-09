@@ -7,6 +7,7 @@ import { MaterialModule } from './material/material.module';
 import { RouterModule, Routes } from '@angular/router';
 import { MeetingListComponent } from './meeting/meeting-list/meeting-list.component';
 import { AddMeetingComponent } from './meeting/add-meeting/add-meeting.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {path: 'meeting/list', component: MeetingListComponent},
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

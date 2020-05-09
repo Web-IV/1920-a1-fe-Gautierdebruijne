@@ -38,4 +38,5 @@ export class MeetingListComponent implements OnInit{
       })
     );
   }
+  
 }
