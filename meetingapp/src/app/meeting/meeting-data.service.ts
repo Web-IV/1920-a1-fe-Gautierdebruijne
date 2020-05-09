@@ -37,6 +37,12 @@ export class MeetingDataService {
         catchError(this.handleError),
         map((list:any[]): Meeting[] => list.map(Meeting.fromJSON))
     );
+  } 
+
+  getMeeting$(id:string):Observable<Meeting>{
+    return this.http
+      .get(`${environment.apiUrl}/meetings/${id}`)
+      .pipe(catchError(this.handleError), map(Meeting.fromJSON));
   }
 
   addNewMeeting(meeting: Meeting){

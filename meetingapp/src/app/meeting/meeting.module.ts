@@ -8,9 +8,10 @@ import { AddMeetingComponent } from './add-meeting/add-meeting.component';
 import { MeetingFilterPipe } from './meeting-filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MeetingDetailComponent } from './meeting-detail/meeting-detail.component';
 
 @NgModule({
-  declarations: [VerkoperComponent, MeetingComponent, MeetingListComponent, AddMeetingComponent, MeetingFilterPipe],
+  declarations: [VerkoperComponent, MeetingComponent, MeetingListComponent, AddMeetingComponent, MeetingFilterPipe, MeetingDetailComponent],
   imports: [CommonModule, HttpClientModule, MaterialModule, ReactiveFormsModule],
   exports: [MeetingListComponent, AddMeetingComponent]
 })

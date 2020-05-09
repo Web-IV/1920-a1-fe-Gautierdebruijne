@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Meeting met {{meeting.name}}</mat-card-title>
+        <mat-card-subtitle>{{meeting.dateAdded | date: 'longDate'}} </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <h3 mat-subheader>Verkopers;</h3>
+        <mat-list>
+            <mat-list-item *ngFor="let verkoper of meeting.verkopers">
+                <app-verkoper [verkoper]="verkoper"></app-verkoper>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
