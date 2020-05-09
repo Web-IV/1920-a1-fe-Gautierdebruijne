@@ -3,6 +3,7 @@ import { Meeting} from '../meeting.model';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Verkoper } from '../verkoper.model';
 import { debounceTime, distinctUntilChanged, last } from 'rxjs/operators';
+import { MeetingDataService } from '../meeting-data.service';
 
 function validateVerkoperName(control: FormGroup): {
   [key:string]: any} {
@@ -25,9 +26,7 @@ export class AddMeetingComponent implements OnInit {
   public meeting: FormGroup;
   public readonly prefix = ['Dhr.', 'Mvr.', 'Fam. '];
 
-  @Output() public newMeeting = new EventEmitter<Meeting>();
-
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private _meetingDataService: MeetingDataService) { }
 
   get verkopers(): FormArray{
     return <FormArray>this.meeting.get('verkopers');
@@ -69,7 +68,7 @@ export class AddMeetingComponent implements OnInit {
   onSubmit(){
     let verkopers = this.meeting.value.verkopers.map(Verkoper.fromJSON);
     verkopers = verkopers.filter(v => v.name.length >= 2);
-    this.newMeeting.emit(new Meeting(this.meeting.value.name, verkopers));
+    this._meetingDataService.addNewMeeting(new Meeting(this.meeting.value.name, verkopers));
 
     this.meeting = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],

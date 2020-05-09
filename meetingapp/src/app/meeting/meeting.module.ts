@@ -12,6 +12,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [VerkoperComponent, MeetingComponent, MeetingListComponent, AddMeetingComponent, MeetingFilterPipe],
   imports: [CommonModule, HttpClientModule, MaterialModule, ReactiveFormsModule],
-  exports: [MeetingListComponent]
+  exports: [MeetingListComponent, AddMeetingComponent]
 })
 export class MeetingModule { }
