@@ -13,13 +13,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { MeetingResolver } from './MeetingResolver';
 
 const routes: Routes = [
-  {path: 'meeting/list', component: MeetingListComponent},
-  {path: 'meeting/add', component: AddMeetingComponent},
-  {path: 'meeting/detail/:id', component: MeetingDetailComponent, resolve: {meeting: MeetingResolver}}];
+  {path: 'list', component: MeetingListComponent},
+  {path: 'add', component: AddMeetingComponent},
+  {path: 'detail/:id', component: MeetingDetailComponent, resolve: {meeting: MeetingResolver}}];
 
 @NgModule({
   declarations: [VerkoperComponent, MeetingComponent, MeetingListComponent, AddMeetingComponent, MeetingFilterPipe, MeetingDetailComponent],
-  imports: [CommonModule, HttpClientModule, MaterialModule, ReactiveFormsModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule, RouterModule.forChild(routes)],
   exports: [MeetingListComponent, AddMeetingComponent]
 })
 export class MeetingModule { }
