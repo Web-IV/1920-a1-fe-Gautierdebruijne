@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MeetingModule } from './meeting/meeting.module';
 import { MaterialModule } from './material/material.module';
-import { RouterModule, Routes } from '@angular/router';
-import { MeetingListComponent } from './meeting/meeting-list/meeting-list.component';
-import { AddMeetingComponent } from './meeting/add-meeting/add-meeting.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -15,12 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { AppRoutingModule } from './app-routing.module';
 
-const appRoutes: Routes = [
-  {path: 'meeting/list', component: MeetingListComponent},
-  {path: 'meeting/add', component: AddMeetingComponent},
-  {path: '', redirectTo: 'meeting/list', pathMatch: 'full'}
-];
 
 @NgModule({
   declarations: [
@@ -32,13 +25,7 @@ const appRoutes: Routes = [
     BrowserModule,
     MeetingModule,
     MaterialModule,
-    RouterModule.forRoot(appRoutes),
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
