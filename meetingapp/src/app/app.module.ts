@@ -24,8 +24,8 @@ import { UserModule } from './user/user.module';
     MeetingModule,
     MaterialModule,
     HttpClientModule,
-    UserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
