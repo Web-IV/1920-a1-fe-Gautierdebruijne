@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SelectivePreloadStrategy } from './SelectivePreloadStrategy';
+import { AuthGuard } from './user/auth.guard';
 
 const appRoutes: Routes = [
   {
     path: 'meeting',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./meeting/meeting.module').then(mod => mod.MeetingModule),
     data: { preload: true }
   },

@@ -26,6 +26,7 @@ function validateVerkoperName(control: FormGroup): {
 export class AddMeetingComponent implements OnInit {
   public meeting: FormGroup;
   public errorMessage: string = '';
+  public confirmationMessage: string = '';
   public readonly prefix = ['Dhr.', 'Mvr.', 'Fam. '];
 
 
@@ -79,7 +80,9 @@ export class AddMeetingComponent implements OnInit {
           return EMPTY;
         })
       )
-      .subscribe();
+      .subscribe((m: Meeting) => {
+        this.confirmationMessage = `a meeting for ${m.name} was succesfully added!`;
+      });
     
     this.meeting = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],

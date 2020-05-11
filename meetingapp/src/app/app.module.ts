@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { UserModule } from './user/user.module';
+import { httpInterceptorProviders } from './http-interceptors/index';
 
 
 @NgModule({
@@ -24,10 +25,10 @@ import { UserModule } from './user/user.module';
     MeetingModule,
     MaterialModule,
     HttpClientModule,
-    AppRoutingModule,
-    UserModule
+    UserModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
