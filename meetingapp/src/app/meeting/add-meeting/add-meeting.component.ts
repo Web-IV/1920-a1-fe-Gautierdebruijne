@@ -2,8 +2,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Meeting} from '../meeting.model'; 
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Verkoper } from '../verkoper.model';
-import { debounceTime, distinctUntilChanged, last } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, last, catchError } from 'rxjs/operators';
 import { MeetingDataService } from '../meeting-data.service';
+import { EMPTY } from 'rxjs';
 
 function validateVerkoperName(control: FormGroup): {
   [key:string]: any} {
@@ -24,7 +25,9 @@ function validateVerkoperName(control: FormGroup): {
 
 export class AddMeetingComponent implements OnInit {
   public meeting: FormGroup;
+  public errorMessage: string = '';
   public readonly prefix = ['Dhr.', 'Mvr.', 'Fam. '];
+
 
   constructor(private fb: FormBuilder, private _meetingDataService: MeetingDataService) { }
 
@@ -67,9 +70,17 @@ export class AddMeetingComponent implements OnInit {
 
   onSubmit(){
     let verkopers = this.meeting.value.verkopers.map(Verkoper.fromJSON);
-    verkopers = verkopers.filter(v => v.name.length >= 2);
-    this._meetingDataService.addNewMeeting(new Meeting(this.meeting.value.name, verkopers));
-
+    verkopers = verkopers.filter((v) => v.name.length >= 2);
+    this._meetingDataService
+      .addNewMeeting(new Meeting(this.meeting.value.name, verkopers))
+      .pipe(
+        catchError((err) => {
+          this.errorMessage = err;
+          return EMPTY;
+        })
+      )
+      .subscribe();
+    
     this.meeting = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       verkopers: this.fb.array([this.createVerkopers()])

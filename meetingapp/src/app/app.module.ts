@@ -9,6 +9,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -20,8 +21,10 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MeetingModule,
     MaterialModule,
     HttpClientModule,
+    UserModule,
     AppRoutingModule
   ],
   providers: [],

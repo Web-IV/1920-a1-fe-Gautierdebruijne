@@ -48,22 +48,22 @@ export class MeetingDataService {
   addNewMeeting(meeting: Meeting){
     return this.http.post(`${environment.apiUrl}/meetings/`, meeting.toJSON())
     .pipe(catchError(this.handleError), map(Meeting.fromJSON))
-    .pipe(catchError(err => {
+    .pipe(catchError((err) => {
       this._meetings$.error(err);
       return throwError(err);
-    })
-    )
-    .subscribe((m: Meeting) => {
-      this._meetings = [...this._meetings, m];
-      this._meetings$.next(this._meetings);
-    });
+    }),
+      tap((m: Meeting) => {
+        this._meetings = [...this._meetings, m];
+        this._meetings$.next(this._meetings);
+      })
+    );
   }
 
   deleteMeeting(meeting: Meeting){
     return this.http.delete(`${environment.apiUrl}/meetings/${meeting.id}`)
     .pipe(catchError(this.handleError))
     .subscribe(() => {
-      this._meetings = this._meetings.filter(m => m.name != meeting.name);
+      this._meetings = this._meetings.filter((m) => m.id != meeting.id);
       this._meetings$.next(this._meetings);
     });
   }
