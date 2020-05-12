@@ -13,27 +13,10 @@ export class MeetingListComponent implements OnInit{
   public filterMeetingName: string = '';
   public meetings: Meeting[];
   public filterMeeting$ = new Subject<string>();
-  //private _fetchMeetings$:  Observable<Meeting[]>
+  private _fetchMeetings$:  Observable<Meeting[]>
   public errorMessage: string = '';
 
-  constructor(private _meetingDataService: MeetingDataService, private _router: Router, private _route:ActivatedRoute) {}
-
-  applyFilter(filter:string){
-    this.filterMeetingName = filter;
-  }
-
-  // get meetings$(): Observable<Meeting[]>{
-  //   return this._fetchMeetings$;
-  // }
-
-  ngOnInit() {
-    // this._fetchMeetings$ = this._meetingDataService.meetings$.pipe(
-    //   catchError(err => {
-    //     this.errorMessage = err;
-    //     return EMPTY;
-    //   })
-    // );
-
+  constructor(private _meetingDataService: MeetingDataService, private _router: Router, private _route:ActivatedRoute) {
     this.filterMeeting$
       .pipe(distinctUntilChanged(), debounceTime(250))
       .subscribe((value) => {
@@ -41,7 +24,8 @@ export class MeetingListComponent implements OnInit{
         this._router.navigate(['meeting/list'], params);
       });
 
-    this._route.queryParams.pipe(
+    this._fetchMeetings$ = this._route.queryParams
+      .pipe(
       switchMap(params => {
         if(params['filter']){
           this.filterMeetingName = params['filter'];
@@ -55,6 +39,15 @@ export class MeetingListComponent implements OnInit{
         return EMPTY;
         })
       )
-      .subscribe((val) => (this.meetings = val));
   }
+
+  applyFilter(filter:string){
+    this.filterMeetingName = filter;
+  }
+
+  get meetings$(): Observable<Meeting[]>{
+    return this._fetchMeetings$;
+  }
+
+  ngOnInit() {}
 }
