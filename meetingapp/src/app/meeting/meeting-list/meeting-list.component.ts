@@ -3,40 +3,57 @@ import { Meeting } from './../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
 import { Subject, Observable, EMPTY } from 'rxjs';
 import { distinctUntilChanged, debounceTime, map, catchError } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-meeting-list',
   templateUrl: './meeting-list.component.html',
   styleUrls: ['./meeting-list.component.css']
 })
 export class MeetingListComponent implements OnInit{
-  public filterMeetingName: string;
+  public filterMeetingName: string = '';
+  public meetings: Meeting[];
   public filterMeeting$ = new Subject<string>();
-  private _fetchMeetings$:  Observable<Meeting[]>
+  //private _fetchMeetings$:  Observable<Meeting[]>
   public errorMessage: string = '';
 
-  constructor(private _meetingDataService: MeetingDataService) {
-    this.filterMeeting$.pipe(
-      distinctUntilChanged(),
-      debounceTime(200),
-      map(v => v.toLowerCase())
-    ).subscribe(v => (this.filterMeetingName = v));
-  }
+  constructor(private _meetingDataService: MeetingDataService, private _router: Router, private _route:ActivatedRoute) {}
 
   applyFilter(filter:string){
     this.filterMeetingName = filter;
   }
 
-  get meetings$(): Observable<Meeting[]>{
-    return this._fetchMeetings$;
-  }
+  // get meetings$(): Observable<Meeting[]>{
+  //   return this._fetchMeetings$;
+  // }
 
-  ngOnInit():void {
-    this._fetchMeetings$ = this._meetingDataService.meetings$.pipe(
-      catchError(err => {
-        this.errorMessage = err;
-        return EMPTY;
-      })
-    );
+  ngOnInit() {
+    // this._fetchMeetings$ = this._meetingDataService.meetings$.pipe(
+    //   catchError(err => {
+    //     this.errorMessage = err;
+    //     return EMPTY;
+    //   })
+    // );
+
+    this.filterMeeting$
+      .pipe(distinctUntilChanged(), debounceTime(250))
+      .subscribe((value) => {
+        const params = value ? {queryParams: {filter: value}} : undefined;
+        this._router.navigate(['meeting/list'], params);
+      });
+
+    this._route.queryParams.subscribe((params) => {
+      this._meetingDataService
+        .getMeetings$(params['filter'])
+        .pipe(catchError((err) => {
+          this.errorMessage = err;
+          return EMPTY;
+          })
+        )
+        .subscribe((val) => (this.meetings = val));
+
+      if(params['filter']){
+        this.filterMeetingName = params['filter'];
+      }
+    });
   }
-  
 }

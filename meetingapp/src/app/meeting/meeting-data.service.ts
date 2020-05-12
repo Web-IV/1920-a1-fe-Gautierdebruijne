@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Meeting } from './meeting.model';
 import { MEETINGS } from './mock-meetings';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { map, tap, delay, catchError } from 'rxjs/operators';
+import { Verkoper } from './verkoper.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,6 @@ export class MeetingDataService {
   constructor(private http: HttpClient) { 
     this.meetings$
     .pipe(catchError(err => {
-      //Temporary fix
       this._meetings$.error(err);
       return throwError(err);
     })
@@ -43,6 +43,17 @@ export class MeetingDataService {
     return this.http
       .get(`${environment.apiUrl}/meetings/${id}`)
       .pipe(catchError(this.handleError), map(Meeting.fromJSON));
+  }
+
+  getMeetings$(name?:string, verkoper?: string){
+    let params = new HttpParams();
+    params = name ? params.append('name', name) : params;
+    params = verkoper ? params.append('verkoperName', verkoper) : params;
+
+    return this.http.get(`${environment.apiUrl}/meetings/`, {params}).pipe(
+      catchError(this.handleError),
+      map((list:any[]): Meeting[] => list.map(Meeting.fromJSON))
+    );
   }
 
   addNewMeeting(meeting: Meeting){

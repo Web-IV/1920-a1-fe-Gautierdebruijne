@@ -1,7 +1,12 @@
 <div fxLayout="column" fxLayoutGap="2%">
   <mat-card>
     <mat-form-field>
-      <input matInput (keyup)='filterMeeting$.next($event.target.value)' placeholder="Zoek op naam" data-cy="filterInput" type="text"> 
+      <input 
+        matInput (keyup)='filterMeeting$.next($event.target.value)' 
+        placeholder="Zoek op naam" 
+        data-cy="filterInput" 
+        type="text"
+        [value]="filterMeetingName"> 
     </mat-form-field>
   </mat-card>
   
@@ -9,7 +14,7 @@
     got an error while loading the recipe list: {{ errorMessage }}
   </mat-card>
   
-  <div *ngIf="meetings$ | async as meetings; else loadingOrError">
+  <div *ngIf="meetings; else loadingOrError">
     <div 
       fxLayout="row wrap"
       fxLayout.xs="column"
@@ -17,7 +22,7 @@
     >
       <div 
         class="meeting"
-        *ngFor="let localMeeting of meetings | meetingFilter: filterMeetingName"
+        *ngFor="let localMeeting of meetings"
         fxFlex="0 0 calc(60%)"
         fxFlex.xs="100%"
       >
