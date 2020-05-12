@@ -14,4 +14,4 @@ Cypress.Commands.add('register', (email, password) => {
       url: '/api/account/register',
       body: { email, password },
     }).then((res) => localStorage.setItem('currentUser', res.body));
-  });
+});

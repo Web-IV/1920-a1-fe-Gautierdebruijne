@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Meeting } from './../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
 import { Subject, Observable, EMPTY } from 'rxjs';
-import { distinctUntilChanged, debounceTime, map, catchError } from 'rxjs/operators';
+import { distinctUntilChanged, debounceTime, map, catchError, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-meeting-list',
@@ -41,19 +41,20 @@ export class MeetingListComponent implements OnInit{
         this._router.navigate(['meeting/list'], params);
       });
 
-    this._route.queryParams.subscribe((params) => {
-      this._meetingDataService
-        .getMeetings$(params['filter'])
-        .pipe(catchError((err) => {
-          this.errorMessage = err;
-          return EMPTY;
-          })
-        )
-        .subscribe((val) => (this.meetings = val));
+    this._route.queryParams.pipe(
+      switchMap(params => {
+        if(params['filter']){
+          this.filterMeetingName = params['filter'];
+        }
 
-      if(params['filter']){
-        this.filterMeetingName = params['filter'];
-      }
-    });
+        return this._meetingDataService.getMeetings$(params['filter']);
+      })
+    )
+    .pipe(catchError((err) => {
+        this.errorMessage = err;
+        return EMPTY;
+        })
+      )
+      .subscribe((val) => (this.meetings = val));
   }
 }
