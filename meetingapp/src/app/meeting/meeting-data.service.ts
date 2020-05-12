@@ -4,7 +4,7 @@ import { MEETINGS } from './mock-meetings';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
-import { map, tap, delay, catchError } from 'rxjs/operators';
+import { map, tap, delay, catchError, switchMap, shareReplay } from 'rxjs/operators';
 import { Verkoper } from './verkoper.model';
 
 @Injectable({
@@ -12,28 +12,13 @@ import { Verkoper } from './verkoper.model';
 })
 
 export class MeetingDataService {
-  private _meetings$ = new BehaviorSubject<Meeting[]>([]);
-  private _meetings: Meeting[];
+  private _reloadMeetings$ = new BehaviorSubject<boolean>(true);
 
-  constructor(private http: HttpClient) { 
-    this.meetings$
-    .pipe(catchError(err => {
-      this._meetings$.error(err);
-      return throwError(err);
-    })
-    )
-    .subscribe((meetings: Meeting[]) => {
-      this._meetings = meetings;
-      this._meetings$.next(this._meetings);
-    });
-  }
-
-  get allMeetings$(): Observable<Meeting[]> {
-    return this._meetings$;
-  }
+  constructor(private http: HttpClient) {}
 
   get meetings$(): Observable<Meeting[]>{
     return this.http.get(`${environment.apiUrl}/meetings/`).pipe(
+        shareReplay(1),
         catchError(this.handleError),
         map((list:any[]): Meeting[] => list.map(Meeting.fromJSON))
     );
@@ -46,6 +31,12 @@ export class MeetingDataService {
   }
 
   getMeetings$(name?:string, verkoper?: string){
+    return this._reloadMeetings$.pipe(
+      switchMap(() => this.fetchMeetings$(name, verkoper))
+    );
+  }
+
+  fetchMeetings$(name?:string, verkoper?: string){
     let params = new HttpParams();
     params = name ? params.append('name', name) : params;
     params = verkoper ? params.append('verkoperName', verkoper) : params;
@@ -60,12 +51,10 @@ export class MeetingDataService {
     return this.http.post(`${environment.apiUrl}/meetings/`, meeting.toJSON())
     .pipe(catchError(this.handleError), map(Meeting.fromJSON))
     .pipe(catchError((err) => {
-      this._meetings$.error(err);
       return throwError(err);
     }),
       tap((m: Meeting) => {
-        this._meetings = [...this._meetings, m];
-        this._meetings$.next(this._meetings);
+        this._reloadMeetings$.next(true);
       })
     );
   }
@@ -74,8 +63,7 @@ export class MeetingDataService {
     return this.http.delete(`${environment.apiUrl}/meetings/${meeting.id}`)
     .pipe(catchError(this.handleError))
     .subscribe(() => {
-      this._meetings = this._meetings.filter((m) => m.id != meeting.id);
-      this._meetings$.next(this._meetings);
+      this._reloadMeetings$.next(true);
     });
   }
 
@@ -93,6 +81,4 @@ export class MeetingDataService {
     
     return throwError(errorMessage);
   }
-
-  
 }

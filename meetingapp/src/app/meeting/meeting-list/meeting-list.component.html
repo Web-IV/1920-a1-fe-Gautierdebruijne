@@ -25,7 +25,8 @@
         *ngFor="let localMeeting of meetings"
         fxFlex="0 0 calc(60%)"
         fxFlex.xs="100%"
-      >
+        data-cy="meetingList"
+        >
         <app-meeting [meeting]="localMeeting" data-cy="meetingCard"></app-meeting>
       </div>
     </div>
