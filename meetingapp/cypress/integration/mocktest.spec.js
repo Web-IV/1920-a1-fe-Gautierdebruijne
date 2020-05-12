@@ -1,4 +1,4 @@
-describe('My first test', function() {
+describe('Testing Mock', function() {
     it('mock meeting get', function() {
         cy.server();
         cy.route({
