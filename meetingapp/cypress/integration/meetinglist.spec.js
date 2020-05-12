@@ -31,7 +31,7 @@ describe('Meeting list tests', function(){
         cy.wait(300);
         cy.get('[data-cy=filterInput]').type('{backspace}{backspace}ga');
         cy.wait(['@getPAmeetings', '@getGAmeetings']);
-        cy.get('[data-cy=recipeCard]').should('have.length', 1);
-        cy.get('[data-cy=recipe-title]').should('contain', 'Gautier');
+        cy.get('[data-cy=meetingCard]').should('have.length', 1);
+        cy.get('[data-cy=meeting-title]').should('contain', 'Gautier');
     });
 });
