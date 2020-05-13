@@ -9,28 +9,30 @@
         [value]="filterMeetingName"> 
     </mat-form-field>
   </mat-card>
+
+  <mat-card>
+    <div *ngIf="meetings$ | async as meetings; else loadingOrError">
+      <div 
+        fxLayout="row wrap"
+        fxLayout.xs="column"
+        fxLayoutAlign="center"
+      >
+        <div 
+          class="meeting"
+          *ngFor="let localMeeting of meetings"
+          fxFlex="0 0 60%"
+          fxFlex.xs="100%"
+          data-cy="meetingList"
+          >
+          <app-meeting [meeting]="localMeeting" data-cy="meetingCard"></app-meeting>
+        </div>
+      </div>
+    </div>
+  </mat-card>
   
   <mat-card class="error" *ngIf="errorMessage" data-cy="appError">
     got an error while loading the recipe list: {{ errorMessage }}
   </mat-card>
-  
-  <div *ngIf="meetings$ | async as meetings; else loadingOrError">
-    <div 
-      fxLayout="row wrap"
-      fxLayout.xs="column"
-      fxLayoutAlign="center"
-    >
-      <div 
-        class="meeting"
-        *ngFor="let localMeeting of meetings"
-        fxFlex="0 0 calc(60%)"
-        fxFlex.xs="100%"
-        data-cy="meetingList"
-        >
-        <app-meeting [meeting]="localMeeting" data-cy="meetingCard"></app-meeting>
-      </div>
-    </div>
-  </div>
 
   <ng-template #loadingOrError>
     <span *ngIf="errorMessage; else loading"></span>

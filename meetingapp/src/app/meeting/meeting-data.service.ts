@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Meeting } from './meeting.model';
-import { MEETINGS } from './mock-meetings';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { map, tap, delay, catchError, switchMap, shareReplay } from 'rxjs/operators';
-import { Verkoper } from './verkoper.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,9 @@
 <mat-card>
-    <mat-card-title>Add a meeting</mat-card-title>
+    <mat-card-title>Een nieuwe afspraak plannen</mat-card-title>
     <mat-card-content>
         <form [formGroup]="meeting" (ngSubmit)="onSubmit()">
             <mat-form-field>
-                <input matInput  aria-label="name" placeholder="name"
+                <input matInput  aria-label="name" placeholder="Naam"
                     type="text" formControlName="name"/>
                 <mat-error *ngIf="meeting.get('name')['errors'] && meeting.get('name').touched">
                     {{ getErrorMessage(meeting.get('name')['errors']) }}</mat-error>
@@ -13,18 +13,14 @@
                 <div [formGroupName]="i">
                   <mat-form-field>
                     <input matInput type="text" aria-label="verkoper name"
-                      placeholder="name" formControlName="name"/>
+                      placeholder="Naam" formControlName="name"/>
                   </mat-form-field>
-                  <!-- <mat-form-field>
-                    <mat-select placeholder="prefix" aria-label="verkoper prefix">
-                      <mat-option *ngFor="let p of prefix" [value]="p">
-                        {{ p }}
+                  <mat-form-field>
+                    <mat-select placeholder="Functies" aria-label="verkoper title" formControlName="title">
+                      <mat-option *ngFor="let title of titles" [value]="title">
+                        {{ title }}
                       </mat-option>
                     </mat-select>
-                  </mat-form-field> -->
-                  <mat-form-field>
-                    <input matInput placeholder="title" aria-label="verkoper title"
-                      type="text" formControlName="title"/>
                   </mat-form-field>
                 </div>
                 <mat-error *ngIf="item.errors && item.get('name').touched">

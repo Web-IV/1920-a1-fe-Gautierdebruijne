@@ -3,10 +3,12 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar><img class="logo" src="assets/img/logo_klein.png"></mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['meeting/list']">Meetings</a>
-      <a mat-list-item [routerLink]="['meeting/add']">Add meeting</a>
+      <a mat-list-item [routerLink]="['meeting/list']">Geplande afspraken</a>
+      <a mat-list-item [routerLink]="['meeting/add']">Afspraak plannen</a>
+      <hr>
+      <img src="assets/img/openingsuren.png">
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -19,7 +21,6 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Geplande afspraken</span>
       <span class="fill-space"></span>
       <span *ngIf="loggedInUser$ | async as user; else loginTemplate">
         {{user}}

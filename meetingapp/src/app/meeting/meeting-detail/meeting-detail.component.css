@@ -1,0 +1,17 @@
+.mat-card {
+    text-align: center;
+}
+
+.mat-card-title {
+    font-size: 5em;
+    margin-left: 1em;
+}
+
+.mat-card-content{
+    text-align: center;
+    font-size: 2em;
+}
+
+.verkoper {
+    text-align: center;
+}

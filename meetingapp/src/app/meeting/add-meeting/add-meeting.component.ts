@@ -27,7 +27,7 @@ export class AddMeetingComponent implements OnInit {
   public meeting: FormGroup;
   public errorMessage: string = '';
   public confirmationMessage: string = '';
-  public readonly prefix = ['Dhr.', 'Mvr.', 'Fam. '];
+  public readonly titles = ['Verkoopsverantwoordelijke', 'Verkoper', 'Vertegenwoordiger', 'CEO', '']
 
 
   constructor(private fb: FormBuilder, private _meetingDataService: MeetingDataService) { }

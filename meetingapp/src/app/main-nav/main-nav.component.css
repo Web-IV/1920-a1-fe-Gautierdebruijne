@@ -3,7 +3,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 22em;
 }
 
 .sidenav .mat-toolbar {
@@ -18,4 +18,12 @@
 
 .fill-space {
   flex: 1 1 auto;
+}
+
+.logo {
+  margin-top: 6em;
+}
+
+.mat-nav-list {
+  margin-top: 6em;
 }
