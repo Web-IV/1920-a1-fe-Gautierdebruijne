@@ -27,7 +27,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatInputModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatOptionModule,
+    MatOptionModule,  
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,

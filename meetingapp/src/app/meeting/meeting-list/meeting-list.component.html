@@ -14,7 +14,7 @@
     got an error while loading the recipe list: {{ errorMessage }}
   </mat-card>
   
-  <div *ngIf="meetings; else loadingOrError">
+  <div *ngIf="meetings$ | async as meetings; else loadingOrError">
     <div 
       fxLayout="row wrap"
       fxLayout.xs="column"

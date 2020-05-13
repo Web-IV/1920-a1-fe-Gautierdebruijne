@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MeetingListComponent implements OnInit{
   public filterMeetingName: string = '';
-  public meetings: Meeting[];
   public filterMeeting$ = new Subject<string>();
   private _fetchMeetings$:  Observable<Meeting[]>
   public errorMessage: string = '';
@@ -21,7 +20,7 @@ export class MeetingListComponent implements OnInit{
       .pipe(distinctUntilChanged(), debounceTime(250))
       .subscribe((value) => {
         const params = value ? {queryParams: {filter: value}} : undefined;
-        this._router.navigate(['meeting/list'], params);
+        this._router.navigate(['/meeting/list'], params);
       });
 
     this._fetchMeetings$ = this._route.queryParams
@@ -49,5 +48,5 @@ export class MeetingListComponent implements OnInit{
     return this._fetchMeetings$;
   }
 
-  ngOnInit() {}
+  ngOnInit():void {}
 }
