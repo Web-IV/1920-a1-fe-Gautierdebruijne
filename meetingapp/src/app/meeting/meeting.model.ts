@@ -13,7 +13,7 @@ export class Meeting{
     constructor(
         private _name: string,
         private _verkopers = new Array<Verkoper>(),
-        private _date = new Date()
+        private _date: Date
     ){}
 
     static fromJSON(json: MeetingJson): Meeting{

@@ -28,9 +28,9 @@ export class MeetingDataService {
       .pipe(catchError(this.handleError), map(Meeting.fromJSON));
   }
 
-  getMeetings$(name?:string, verkoper?: string){
+  getMeetings$(name?:string){
     return this._reloadMeetings$.pipe(
-      switchMap(() => this.fetchMeetings$(name, verkoper))
+      switchMap(() => this.fetchMeetings$(name))
     );
   }
 

@@ -39,7 +39,8 @@ export class AddMeetingComponent implements OnInit {
   ngOnInit() {
     this.meeting = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      verkopers: this.fb.array([this.createVerkopers()])
+      verkopers: this.fb.array([this.createVerkopers()]),
+      date: new Date()
     });
 
     this.verkopers.valueChanges
@@ -73,7 +74,7 @@ export class AddMeetingComponent implements OnInit {
     let verkopers = this.meeting.value.verkopers.map(Verkoper.fromJSON);
     verkopers = verkopers.filter((v) => v.name.length >= 2);
     this._meetingDataService
-      .addNewMeeting(new Meeting(this.meeting.value.name, verkopers))
+      .addNewMeeting(new Meeting(this.meeting.value.name, verkopers, this.meeting.value.date))
       .pipe(
         catchError((err) => {
           this.errorMessage = err;
@@ -86,7 +87,8 @@ export class AddMeetingComponent implements OnInit {
     
     this.meeting = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      verkopers: this.fb.array([this.createVerkopers()])
+      verkopers: this.fb.array([this.createVerkopers()]),
+      date: ['']
     });
   }
 
