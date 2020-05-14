@@ -1,26 +1,29 @@
 <mat-card>
-    <mat-card-title>Een nieuwe afspraak plannen</mat-card-title>
+    <mat-card-title>Een nieuwe afspraak plannen<hr></mat-card-title>
     <mat-card-content>
         <form [formGroup]="meeting" (ngSubmit)="onSubmit()">
+          <span class="span">Klantinfo:</span><br>
             <mat-form-field>
                 <input matInput  aria-label="name" placeholder="Naam"
                     type="text" formControlName="name"/>
                 <mat-error *ngIf="meeting.get('name')['errors'] && meeting.get('name').touched">
-                    {{ getErrorMessage(meeting.get('name')['errors']) }}</mat-error>
+                    {{ getErrorMessage(meeting.get('name')['errors']) }}
+                </mat-error>
             </mat-form-field>
 
+            <br><span class="span">Vertegenwoordiger(s): </span><br>
             <div formArrayName="verkopers" *ngFor="let item of meeting.get('verkopers')['controls']; let i = index">
                 <div [formGroupName]="i">
                   <mat-form-field>
-                    <input matInput type="text" aria-label="verkoper name"
-                      placeholder="Naam" formControlName="name"/>
-                  </mat-form-field>
-                  <mat-form-field>
-                    <mat-select placeholder="Functies" aria-label="verkoper title" formControlName="title">
-                      <mat-option *ngFor="let title of titles" [value]="title">
-                        {{ title }}
+                    <mat-select aria-label="verkoper name" placeholder="Werknemers" formControlName="name">
+                      <mat-option *ngFor="let name of names" [value]="name">
+                        {{ name }}
                       </mat-option>
                     </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" aria-label="verkoper title"
+                      placeholder="Functie" formControlName="title"/>
                   </mat-form-field>
                 </div>
                 <mat-error *ngIf="item.errors && item.get('name').touched">
