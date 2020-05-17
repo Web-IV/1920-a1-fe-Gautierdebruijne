@@ -17,11 +17,12 @@
 }
 
 .fill-space {
-  flex: 1 1 auto;
+  flex: 1 0 auto;
 }
 
 .logo {
   margin-top: 6em;
+  margin-left: 1em;
 }
 
 .mat-nav-list {

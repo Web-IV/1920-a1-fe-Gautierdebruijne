@@ -20,8 +20,4 @@ export class MeetingComponent implements OnInit {
   deleteMeeting(){
     this._meetingDataService.deleteMeeting(this.meeting);
   }
-
-  getMeeting(id:number){
-    this._meetingDataService.getMeeting$(id)
-  }
 }
