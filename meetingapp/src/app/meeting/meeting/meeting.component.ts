@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Meeting } from '../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
+import { MeetingResolver } from '../MeetingResolver';
+import { MeetingDetailComponent } from '../meeting-detail/meeting-detail.component';
 
 @Component({
   selector: 'app-meeting',
@@ -17,5 +19,9 @@ export class MeetingComponent implements OnInit {
 
   deleteMeeting(){
     this._meetingDataService.deleteMeeting(this.meeting);
+  }
+
+  getMeeting(id:number){
+    this._meetingDataService.getMeeting$(id)
   }
 }

@@ -82,7 +82,7 @@ export class AddMeetingComponent implements OnInit {
         })
       )
       .subscribe((m: Meeting) => {
-        this.confirmationMessage = `a meeting for ${m.name} was succesfully added!`;
+        this.confirmationMessage = `A new meeting for ${m.name} was succesfully added!`;
       });
     
     this.meeting = this.fb.group({

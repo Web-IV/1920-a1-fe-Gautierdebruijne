@@ -4,7 +4,7 @@ interface MeetingJson {
     id: number;
     name:string;
     verkopers:VerkoperJson[];
-    date: Date;
+    date: Date
 }
 
 export class Meeting{
@@ -26,7 +26,7 @@ export class Meeting{
         return <MeetingJson>{
             name: this.name,
             verkopers: this.verkopers.map(v => v.toJSON()),
-            date: this._date
+            date: this.date
         };
     }
     

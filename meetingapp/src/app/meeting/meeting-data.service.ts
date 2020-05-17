@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { map, tap, delay, catchError, switchMap, shareReplay } from 'rxjs/operators';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class MeetingDataService {
     );
   } 
 
-  getMeeting$(id:string):Observable<Meeting>{
+  getMeeting$(id:number):Observable<Meeting>{
     return this.http
       .get(`${environment.apiUrl}/meetings/${id}`)
       .pipe(catchError(this.handleError), map(Meeting.fromJSON));
@@ -34,10 +35,11 @@ export class MeetingDataService {
     );
   }
 
-  fetchMeetings$(name?:string, verkoper?: string){
+  fetchMeetings$(name?:string, verkoper?: string, date?: string){
     let params = new HttpParams();
     params = name ? params.append('name', name) : params;
     params = verkoper ? params.append('verkoperName', verkoper) : params;
+    params = date ? params.append('date', date) : params;
 
     return this.http.get(`${environment.apiUrl}/meetings/`, {params}).pipe(
       catchError(this.handleError),

@@ -4,7 +4,7 @@
         <form [formGroup]="meeting" (ngSubmit)="onSubmit()">
           <span class="span">Naam en datum: </span><br>
             <mat-form-field>
-                <input matInput  aria-label="name" placeholder="Naam"
+                <input matInput aria-label="name" placeholder="Naam"
                     type="text" formControlName="name"/>
                 <mat-error *ngIf="meeting.get('name')['errors'] && meeting.get('name').touched">
                     {{ getErrorMessage(meeting.get('name')['errors']) }}
@@ -12,9 +12,9 @@
             </mat-form-field>
             
             <mat-form-field>
-              <input matInput [matDatepicker]="picker1" formControlName="date">
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
+              <input matInput aria-label="date" [matDatepicker]="date" formControlName="date">
+              <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+              <mat-datepicker #date></mat-datepicker>
 
               <mat-error *ngIf="meeting.get('date')['errors'] && meeting.get('date').touched">
                 {{ getErrorMessage(meeting.get('date')['errors']) }}
@@ -25,7 +25,7 @@
             <div formArrayName="verkopers" *ngFor="let item of meeting.get('verkopers')['controls']; let i = index">
                 <div [formGroupName]="i">
                   <mat-form-field>
-                    <mat-select aria-label="verkoper name" placeholder="Werknemers" formControlName="name">
+                    <mat-select aria-label="verkoper name" placeholder="Naam" formControlName="name">
                       <mat-option *ngFor="let name of names" [value]="name">
                         {{ name }}
                       </mat-option>

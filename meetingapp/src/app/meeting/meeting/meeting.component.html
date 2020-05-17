@@ -13,6 +13,9 @@
         <button (click)="deleteMeeting()">
             <mat-icon>delete_forever</mat-icon>
         </button>
+        <button [routerLink]="[meeting.id]">
+            <mat-icon>assignment_ind</mat-icon>
+        </button>
     </mat-card-content>
 </mat-card>
 
