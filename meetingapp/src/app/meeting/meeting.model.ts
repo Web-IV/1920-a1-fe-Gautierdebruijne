@@ -4,7 +4,7 @@ interface MeetingJson {
     id: number;
     name:string;
     verkopers:VerkoperJson[];
-    date: Date
+    date: string;
 }
 
 export class Meeting{
@@ -13,17 +13,18 @@ export class Meeting{
     constructor(
         private _name: string,
         private _verkopers = new Array<Verkoper>(),
-        private _date: Date
+        private _date: string
     ){}
 
     static fromJSON(json: MeetingJson): Meeting{
-        const m = new Meeting(json.name, json.verkopers.map(Verkoper.fromJSON), json.date);
+        const m = new Meeting(json.name, json.verkopers.map(Verkoper.fromJSON), json.date)
         m._id = json.id;
         return m;
     }
 
     toJSON() : MeetingJson {
         return <MeetingJson>{
+            id: this.id,
             name: this.name,
             verkopers: this.verkopers.map(v => v.toJSON()),
             date: this.date
@@ -38,7 +39,7 @@ export class Meeting{
         return this._id;
     }
 
-    get date():Date{
+    get date():string{
         return this._date;
     }
 

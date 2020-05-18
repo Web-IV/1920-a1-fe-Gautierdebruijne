@@ -72,6 +72,7 @@ export class AddMeetingComponent implements OnInit {
 
   onSubmit(){
     let verkopers = this.meeting.value.verkopers.map(Verkoper.fromJSON);
+
     verkopers = verkopers.filter((v) => v.name.length >= 2);
     this._meetingDataService
       .addNewMeeting(new Meeting(this.meeting.value.name, verkopers, this.meeting.value.date))
