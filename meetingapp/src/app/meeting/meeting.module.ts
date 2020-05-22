@@ -14,6 +14,7 @@ import { MeetingResolver } from './MeetingResolver';
 const routes: Routes = [
   {path: 'list', component: MeetingListComponent},
   {path: 'add', component: AddMeetingComponent},
+  {path: 'edit/:id', component: AddMeetingComponent},
   {path: 'list/:id', component: MeetingDetailComponent, resolve: {meeting: MeetingResolver}}];
 
 @NgModule({

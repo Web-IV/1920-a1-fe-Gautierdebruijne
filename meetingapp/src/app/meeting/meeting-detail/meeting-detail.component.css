@@ -1,17 +1,25 @@
-.mat-card {
-    text-align: center;
-}
-
-.mat-card-title {
-    font-size: 5em;
-    margin-left: 1em;
-}
-
 .mat-card-content{
     text-align: center;
     font-size: 2em;
+    font-weight: 300;
 }
 
-.verkoper {
-    text-align: center;
+.verkoper{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 2%;
+}
+
+.title{
+    font-weight: 300;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.subtitle{
+    font-weight: 200;
+}
+
+.content{
+   font-size: 50%;
 }

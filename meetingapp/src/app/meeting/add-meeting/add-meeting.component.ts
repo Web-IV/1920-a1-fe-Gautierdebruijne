@@ -5,6 +5,7 @@ import { Verkoper } from '../verkoper.model';
 import { debounceTime, distinctUntilChanged, last, catchError } from 'rxjs/operators';
 import { MeetingDataService } from '../meeting-data.service';
 import { EMPTY } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 function validateVerkoperName(control: FormGroup): {
   [key:string]: any} {
@@ -30,7 +31,7 @@ export class AddMeetingComponent implements OnInit {
   public readonly names = ['Jo de Bruijne', 'Gunter van Damme', 'Stefaan Durwael', 'Benny Cools', 'Pascale Engels']
 
 
-  constructor(private fb: FormBuilder, private _meetingDataService: MeetingDataService) { }
+  constructor(private fb: FormBuilder, private _meetingDataService: MeetingDataService, private route: ActivatedRoute) { }
 
   get verkopers(): FormArray{
     return <FormArray>this.meeting.get('verkopers');
@@ -60,7 +61,32 @@ export class AddMeetingComponent implements OnInit {
           }
         }
       });
+
+      // this.route.paramMap.subscribe(params => {
+      //   const meetingId = +params.get('id');
+      //   if(meetingId){
+      //     this.getMeeting(meetingId);
+      //   }
+      // });
   }
+
+  // getMeeting(id: number){
+  //   this._meetingDataService.getMeeting$(id).subscribe(
+  //     (m: Meeting) => this.editMeeting(m),
+  //     catchError((err) => {
+  //       this.errorMessage = err;
+  //       return EMPTY;
+  //     })
+  //   );
+  // }
+
+  // editMeeting(meeting: Meeting){
+  //   this.meeting = this.fb.group({
+  //     name: [meeting.name, [Validators.required, Validators.minLength(2)]],
+  //     verkopers: this.fb.array([this.createVerkopers()]),
+  //     date: [meeting.date]
+  //   });
+  // }
 
   createVerkopers() : FormGroup {
     return this.fb.group({
@@ -68,6 +94,10 @@ export class AddMeetingComponent implements OnInit {
       title: ['']
     }, { validator: validateVerkoperName }
     );
+  }
+
+  getVerkopers(id: number) {
+    return this._meetingDataService.getVerkopers$(id);
   }
 
   onSubmit(){

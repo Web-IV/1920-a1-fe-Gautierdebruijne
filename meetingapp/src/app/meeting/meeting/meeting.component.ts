@@ -3,6 +3,7 @@ import { Meeting } from '../meeting.model';
 import { MeetingDataService } from '../meeting-data.service';
 import { MeetingResolver } from '../MeetingResolver';
 import { MeetingDetailComponent } from '../meeting-detail/meeting-detail.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meeting',
@@ -12,12 +13,16 @@ import { MeetingDetailComponent } from '../meeting-detail/meeting-detail.compone
 export class MeetingComponent implements OnInit {
   @Input() public meeting: Meeting;
 
-  constructor(private _meetingDataService: MeetingDataService) {}
+  constructor(private _meetingDataService: MeetingDataService, private _router: Router) {}
 
   ngOnInit(): void {
   }
 
   deleteMeeting(){
     this._meetingDataService.deleteMeeting(this.meeting);
+  }
+
+  editMeeting(id:number){
+    this._router.navigate(['/edit', id])
   }
 }

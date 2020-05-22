@@ -10,11 +10,14 @@
                 <app-verkoper [verkoper]="verkoper"></app-verkoper>
             </mat-list-item>
         </mat-list>
-        <button (click)="deleteMeeting()">
-            <mat-icon>delete_forever</mat-icon>
-        </button>
         <button [routerLink]="[meeting.id]">
             <mat-icon>assignment_ind</mat-icon>
+        </button>
+        <!-- <button (click)="editMeeting(meeting.id)">
+            <mat-icon>edit</mat-icon>
+        </button> -->
+        <button (click)="deleteMeeting()" class="button-red">
+            <mat-icon>delete_forever</mat-icon>
         </button>
     </mat-card-content>
 </mat-card>

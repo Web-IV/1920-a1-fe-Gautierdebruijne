@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Meeting } from './meeting.model';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { map, tap, delay, catchError, switchMap, shareReplay } from 'rxjs/operators';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { Verkoper } from './verkoper.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,12 @@ export class MeetingDataService {
     );
   }
 
+  getVerkopers$(id:number){
+    return this.http.get(`${environment.apiUrl}/meetings/${id}/verkopers`).pipe(
+      map((list:any[]): Verkoper[] => list.map(Verkoper.fromJSON))
+    );
+  }
+
   fetchMeetings$(name?:string, verkoper?: string, date?: string){
     let params = new HttpParams();
     params = name ? params.append('name', name) : params;
@@ -58,6 +65,17 @@ export class MeetingDataService {
       })
     );
   }
+
+  // updateMeeting(meeting: Meeting){
+  //   return this.http.put<void>(`${environment.apiUrl}/meetings/${meeting.id}`, meeting, {
+  //     headers: new HttpHeaders({
+  //       'Content Type': 'application/json'
+  //     })
+  //   }).pipe(catchError((err) => {
+  //     return throwError(err);
+  //   })
+  //   );
+  // }
 
   deleteMeeting(meeting: Meeting){
     return this.http.delete(`${environment.apiUrl}/meetings/${meeting.id}`)
